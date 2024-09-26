@@ -1,0 +1,39 @@
+.authLayout__container {
+  display: flex;
+}
+
+.app-name {
+  padding-bottom: 48px;
+  h1 {
+    font-size: 40px;
+    line-height: 48px;
+  }
+
+  h3 {
+    font-size: 32px;
+    line-height: 44px;
+  }
+}
+
+.app-description {
+  font-size: 18px;
+}
+
+.authLayout__item {
+  min-height: 100dvh;
+  width: 50%;
+}
+
+.authLayout__item:first-child {
+  background: linear-gradient(206deg, #000000 -51.17%, #fbfafa 115.51%);
+  color: #ffffff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 70px 96px;
+}
+
+.authLayout__item:last-child {
+  overflow-y: auto;
+  padding: 70px 16px 0 16px;
+}

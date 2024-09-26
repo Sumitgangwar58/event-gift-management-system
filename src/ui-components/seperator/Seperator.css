@@ -1,0 +1,21 @@
+.seperator {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(97, 97, 97);
+
+  .line {
+    width: 100%;
+    border-bottom: 1px solid rgb(239, 239, 239);
+  }
+
+  .or {
+    position: absolute;
+  }
+}
+
+.seperator:has(.or) {
+  min-height: 22px;
+}
