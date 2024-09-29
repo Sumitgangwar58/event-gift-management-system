@@ -1,0 +1,11 @@
+.sidebar__container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  min-height: 100dvh;
+  max-height: 100dvh;
+  overflow-y: auto;
+  border-right: 1px solid var(--viridian);
+  padding: 16px;
+}

@@ -1,14 +1,14 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import Authlayout from "./ui-components/authLayout/AuthLayout";
-import Login from "./components/authLayout/Login";
+import UserContextProvider from "./context/userContextProvider";
+import RenderRoutes from "./routes/RenderHelper";
 
 function App() {
   return (
-    <div className="App">
-      <Login />
-    </div>
+    <UserContextProvider>
+      <div className="App">
+        <RenderRoutes />
+      </div>
+    </UserContextProvider>
   );
 }
 

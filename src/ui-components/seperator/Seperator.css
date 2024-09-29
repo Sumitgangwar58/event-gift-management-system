@@ -4,11 +4,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgb(97, 97, 97);
 
   .line {
     width: 100%;
-    border-bottom: 1px solid rgb(239, 239, 239);
+    border-bottom: 1px solid var(--viridian);
   }
 
   .or {

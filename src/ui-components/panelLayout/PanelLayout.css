@@ -1,0 +1,8 @@
+.main__container {
+  margin-left: var(--sidebar-width);
+  min-height: 100dvh;
+  overflow-y: auto;
+  main {
+    padding: 16px;
+  }
+}

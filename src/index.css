@@ -22,3 +22,34 @@ h3 {
   font-size: 24px;
   line-height: 26px;
 }
+
+a {
+  display: inline-flex;
+  align-items: center;
+  color: var(--link-color);
+  svg {
+    margin-right: 8px;
+  }
+}
+
+a:hover {
+  color: var(--link-color-hover);
+}
+
+.input-with-option {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+:root {
+  --viridian: hsla(154, 15%, 49%, 1);
+  --cambridge-blue: hsla(147, 21%, 70%, 1);
+  --mint-green: hsla(167, 29%, 85%, 1);
+  --azure-web: hsla(180, 31%, 94%, 1);
+  --mint-cream: hsla(133, 100%, 98%, 1);
+  --link-color: hsl(214, 100%, 41%);
+  --link-color-hover: hsl(214, 100%, 30%);
+  --error-color: hsl(0, 91%, 31%);
+  --sidebar-width: 300px;
+}

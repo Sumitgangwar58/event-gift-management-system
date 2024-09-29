@@ -1,12 +1,13 @@
 import React from "react";
 import "./AuthLayout.css";
+import { Outlet } from "react-router-dom";
 
 interface AuthLayoutI {
-  children: React.ReactNode;
+  // children: React.ReactNode;
 }
 
 const Authlayout = ({ ...props }: AuthLayoutI) => {
-  const { children } = props;
+  // const { children } = props;
   return (
     <div className="authLayout__container">
       <div className="authLayout__item">
@@ -22,7 +23,10 @@ const Authlayout = ({ ...props }: AuthLayoutI) => {
           dolore sunt est provident?
         </p>
       </div>
-      <div className="authLayout__item">{children}</div>
+      <div className="authLayout__item">
+        <Outlet />
+        <div className="footer">copyright@sumit</div>
+      </div>
     </div>
   );
 };
