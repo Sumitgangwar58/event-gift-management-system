@@ -8,4 +8,51 @@
   overflow-y: auto;
   border-right: 1px solid var(--viridian);
   padding: 16px;
+  .sidebar__logo-container {
+    font-size: 32px;
+    font-weight: 600;
+  }
+
+  .sidebar__navigation-container {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--loose);
+
+    .sidebar__nav-link {
+      padding: 20px;
+      margin-left: 10px;
+      text-decoration: none;
+      border-radius: 6px;
+      position: relative;
+    }
+
+    .sidebar__nav-link::after {
+      content: "";
+      position: absolute;
+      left: -10px;
+      width: 5px;
+      background: transparent;
+      height: 100%;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .sidebar__nav-link:hover {
+      color: black;
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar__nav-link:hover::after {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar__nav-link.active {
+      background: var(--mint-cream);
+      color: var(--viridian);
+    }
+
+    .sidebar__nav-link.active::after {
+      background: var(--viridian);
+    }
+  }
 }

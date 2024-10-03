@@ -3,7 +3,7 @@ import "./Button.css";
 import classNames from "classnames";
 
 interface ButtonI extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "textButton" | "default";
+  variant?: "primary" | "textButton" | "default" | "iconButton";
   isFullWidth?: boolean;
 }
 
@@ -13,6 +13,7 @@ const Button = ({ ...props }: ButtonI) => {
     children,
     isFullWidth,
     className,
+    style,
     ...rest
   } = props;
   return (
@@ -23,6 +24,7 @@ const Button = ({ ...props }: ButtonI) => {
         fullWidth: isFullWidth,
         [className as string]: className,
       })}
+      style={style}
     >
       <button className="button__input" {...rest}>
         <span className="button__text">{children}</span>

@@ -43,13 +43,28 @@ a:hover {
 }
 
 :root {
-  --viridian: hsla(154, 15%, 49%, 1);
-  --cambridge-blue: hsla(147, 21%, 70%, 1);
+  --viridian: #6a907f;
+  --viridianDark: #48685a;
+  --cambridge-blue: #a2c3b1;
   --mint-green: hsla(167, 29%, 85%, 1);
   --azure-web: hsla(180, 31%, 94%, 1);
-  --mint-cream: hsla(133, 100%, 98%, 1);
+  --mint-cream: rgb(245, 255, 247);
   --link-color: hsl(214, 100%, 41%);
   --link-color-hover: hsl(214, 100%, 30%);
   --error-color: hsl(0, 91%, 31%);
+
+  --gradient: linear-gradient(
+    206deg,
+    var(--viridian) -51.17%,
+    var(--cambridge-blue) 115.51%
+  );
+
   --sidebar-width: 300px;
+
+  /* spacing */
+  --tight: 8px;
+  --medium-tight: 12px;
+  --loose: 16px;
+  --medium-loose: 20px;
+  --extra--loose: 24px;
 }

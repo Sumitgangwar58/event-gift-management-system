@@ -6,6 +6,25 @@
   outline: none;
 }
 
+.button__text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--tight);
+}
+
+.button__container.iconButton {
+  .button__input {
+    padding: 0;
+    border-radius: 50%;
+    background: transparent;
+  }
+  .button__input:hover {
+    outline: 10px solid rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.05);
+  }
+}
+
 .button__container.default {
   .button__input {
     background: #f8f9fa;
@@ -28,13 +47,15 @@
     color: var(--mint-cream);
     font-weight: 500;
   }
-
+  .button__input:hover {
+    background-color: var(--viridianDark);
+  }
   .button__input:active {
     box-shadow: -0.0625rem 0rem 0.0625rem 0rem rgba(26, 26, 26, 0.122) inset,
       0.0625rem 0rem 0.0625rem 0rem rgba(26, 26, 26, 0.122) inset,
       0rem 0.125rem 0.0625rem 0rem rgba(26, 26, 26, 0.2) inset;
     .button__text {
-      display: inline-block;
+      display: flex;
       transform: translateY(1.25px);
     }
   }

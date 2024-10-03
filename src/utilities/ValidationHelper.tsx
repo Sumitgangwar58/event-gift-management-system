@@ -2,6 +2,7 @@ import { error } from "console";
 
 // Email validation function
 const validateEmail = (email: string) => {
+  console.log("email");
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!email.trim()) {
     return { isValid: false, error: "Please Enter Email Address" };

@@ -74,8 +74,6 @@ const Login = () => {
     navigator("/panel");
   };
 
-  console.log(errors);
-
   const handelFieldChange = () => {
     let newData = { ...formData };
     withPhone ? (newData.phone = "") : (newData.email = "");

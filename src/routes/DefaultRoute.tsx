@@ -9,7 +9,6 @@ const DefaultRoute = () => {
     isLoggedIn ? navigate("/panel/dashboard") : navigate("/login");
   }, []);
 
-  console.log("object");
   return <></>;
 };
 

@@ -1,5 +1,12 @@
 import React, { createContext, useEffect, useState } from "react";
 
+export type User = {
+  name: string;
+  email: string;
+  phone: string;
+  password: string;
+};
+
 type UserContextType = {
   userName: string | null;
   email: string;

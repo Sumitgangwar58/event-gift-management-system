@@ -1,18 +1,30 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "../components/panel/Dashboard";
-import Events from "../components/panel/Events";
-import PanelLayout from "../ui-components/panelLayout/PanelLayout";
+import Events from "../components/panel/events/Events";
+import Panel from "../components/panel/Panel";
+import RouteRedirector from "./RouteRedirector";
+import EventContextProvider from "../context/EventContextProvider";
+import ViewEvent from "../components/panel/events/viewEvent/ViewEvent";
 
 const PanelRoutes = () => {
   return (
-    <Routes>
-      <Route path="/panel" element={<PanelLayout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="events" element={<Events />} />
-        <Route path="*" element={<Dashboard />} />
-      </Route>
-    </Routes>
+    <EventContextProvider>
+      <Routes>
+        <Route path="/panel" element={<Panel />}>
+          <Route path="dahsboard" element={<Dashboard />} />
+          <Route path="events">
+            <Route index element={<Events />} />
+            <Route path=":eventTimestamp" element={<ViewEvent />} />
+          </Route>
+
+          <Route
+            path="*"
+            element={<RouteRedirector url="/panel/dashboard" />}
+          />
+        </Route>
+      </Routes>
+    </EventContextProvider>
   );
 };
 

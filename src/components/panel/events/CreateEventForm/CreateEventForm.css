@@ -1,0 +1,34 @@
+.createEventForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--loose);
+}
+
+.invite-input {
+  display: flex;
+  gap: var(--medium-tight);
+  align-items: end;
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  .textField__container {
+    flex-grow: 1;
+  }
+}
+
+.invite-input:has(.textField__container.hasError) {
+  align-items: center;
+}
+
+.invite-guest-list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--loose);
+
+  .invite-guest-item {
+    display: flex;
+    gap: var(--medium-loose);
+    justify-content: space-between;
+  }
+}
