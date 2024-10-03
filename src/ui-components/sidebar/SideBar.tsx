@@ -2,6 +2,8 @@ import React from "react";
 import "./SideBar.css";
 import { Link, useLocation } from "react-router-dom";
 import classNames from "classnames";
+import Button from "../button/Button";
+import { XIcon } from "../../assets/icons";
 
 export type SideBarOptionsI = {
   title: string;
@@ -17,9 +19,19 @@ const SideBar = ({ ...props }: SideBarI) => {
   const { logo, options } = props;
 
   const location = useLocation();
-  console.log(location.pathname, location.pathname.includes("dashboard"));
+  const closeSideBar = () => {
+    document.documentElement.classList.remove("has-sidebar-active");
+  };
   return (
     <aside className="sidebar__container">
+      <Button
+        className="sidebar-close-button"
+        variant={"iconButton"}
+        style={{ marginLeft: "auto", width: "fit-content" }}
+        onClick={closeSideBar}
+      >
+        <XIcon />
+      </Button>
       <div className="sidebar__logo-container">{logo}</div>
       <nav className="sidebar__navigation-container">
         {options.map((i) => (

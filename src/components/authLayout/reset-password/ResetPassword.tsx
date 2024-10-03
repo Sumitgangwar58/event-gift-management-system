@@ -14,7 +14,7 @@ const initialValue = {
 const ResetPassword = () => {
   const [formData, setFormData] = useState(initialValue);
   const [errors, setErrors] = useState(initialValue);
-  const { email, changeValue } = useContext(UserContext);
+  const { usersList, changeValue } = useContext(UserContext);
   const [isPasswordChanged, setIsPasswordChanged] = useState(false);
 
   const handelChange = (
@@ -46,14 +46,17 @@ const ResetPassword = () => {
     setErrors({ ...newErrors });
 
     if (!flag) return;
-    if (email !== formData.email) {
+    usersList.forEach((user) => {
+      if (user.email === formData.email) flag = true;
+    });
+    if (!flag) {
       setErrors((prev) => ({
         ...prev,
         email: "Email is not exists in database",
       }));
       return;
     }
-    changeValue(formData.password, "password");
+    changeValue(formData.password, "password", { email: formData.email });
     setIsPasswordChanged(true);
   };
   return (

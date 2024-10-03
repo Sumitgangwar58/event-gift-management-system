@@ -11,6 +11,7 @@ interface ModalI {
   onClose: () => void;
   children: React.ReactNode;
   footerActions: React.ReactNode[];
+  customClass?: string;
 }
 
 const Modal = ({ ...props }: ModalI) => {
@@ -19,7 +20,7 @@ const Modal = ({ ...props }: ModalI) => {
       {props.isOpen ? (
         <PortalComponent>
           <div className="modal__backdrop" />
-          <div className="modal">
+          <div className={`modal ${props.customClass ?? ""}`}>
             <div className="modal__header">
               <h3>{props.heading}</h3>
               <Button variant="iconButton" onClick={props.onClose}>

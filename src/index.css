@@ -42,6 +42,10 @@ a:hover {
   gap: 12px;
 }
 
+ul {
+  list-style-type: none;
+}
+
 :root {
   --viridian: #6a907f;
   --viridianDark: #48685a;
@@ -52,6 +56,8 @@ a:hover {
   --link-color: hsl(214, 100%, 41%);
   --link-color-hover: hsl(214, 100%, 30%);
   --error-color: hsl(0, 91%, 31%);
+  --secondary-text:hsl(217, 8%, 41%);
+
 
   --gradient: linear-gradient(
     206deg,
@@ -66,5 +72,18 @@ a:hover {
   --medium-tight: 12px;
   --loose: 16px;
   --medium-loose: 20px;
-  --extra--loose: 24px;
+  --extra-loose: 24px;
 }
+
+@media screen and (max-width : 768px) {
+  :root {
+    --sidebar-width: 0px;
+  }
+
+  :root.has-sidebar-active .sidebar__container{
+    display:  block !important;
+    width: 300px;
+    background: #fff;
+    z-index: 999  ;
+  }
+} 

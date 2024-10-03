@@ -1,5 +1,5 @@
-import React, { createContext } from "react";
-import { User } from "./userContextProvider";
+import React, { createContext, useContext } from "react";
+import { User, UserContext } from "./userContextProvider";
 import useLocalStorage from "../hooks/useLocalStorage";
 
 export type EventI = {
@@ -7,7 +7,7 @@ export type EventI = {
   title: string;
   description: string;
   timeStamp: string;
-  guestList?: User[];
+  guestList: User[];
   inviteList: { email: string; isAccepted: boolean }[];
   contributionList: { amount: number; user: User; timeStamp: string }[];
 };
@@ -15,7 +15,6 @@ export type EventI = {
 type createEventPayLoadType = {
   title: string;
   description: string;
-  owner: User;
   inviteList: string[];
 };
 
@@ -37,6 +36,8 @@ type EventContextType = {
   editEvent: (payload: editEventPayLoadType) => void;
   inviteGuest: (payload: inviteEventPayloadType) => void;
   deleteEvent: (payload: deleteEventPayloadType) => void;
+  contributeToEvent : (amount : number , event : EventI) => void
+  acceptInvite : (event:EventI) => void
 };
 
 const initialValue: EventContextType = {
@@ -45,6 +46,8 @@ const initialValue: EventContextType = {
   editEvent: () => {},
   inviteGuest: () => {},
   deleteEvent: () => {},
+  contributeToEvent : () => {},
+  acceptInvite : () => {},
 };
 
 export const EventContext = createContext<EventContextType>(initialValue);
@@ -53,8 +56,10 @@ const key = "Events_Management";
 
 const EventContextProvider = ({ children }: { children: React.ReactNode }) => {
   const { data, updateData } = useLocalStorage(key);
+  const { owner } = useContext(UserContext);
 
   const createEvent = (payload: createEventPayLoadType) => {
+    if (!owner) return;
     const newEvent: EventI = {
       title: payload.title,
       description: payload.description,
@@ -62,9 +67,10 @@ const EventContextProvider = ({ children }: { children: React.ReactNode }) => {
         email: i,
         isAccepted: false,
       })),
-      owner: payload.owner,
+      owner: owner,
       contributionList: [],
       timeStamp: new Date().getTime().toString(),
+      guestList : []
     };
 
     const newEvents = [...data, newEvent];
@@ -102,6 +108,7 @@ const EventContextProvider = ({ children }: { children: React.ReactNode }) => {
     });
     updateData([...updatedEvents]);
   };
+
   const deleteEvent = (payload: deleteEventPayloadType) => {
     const currentEvent = payload.event;
     const updatedEvents = [...data].filter(
@@ -109,6 +116,41 @@ const EventContextProvider = ({ children }: { children: React.ReactNode }) => {
     );
     updateData([...updatedEvents]);
   };
+
+  const contributeToEvent = (amount: number, event: EventI) => {
+    if(!owner)  return
+    const newEvent = data.map((i: EventI) => {
+      if (i.timeStamp === event.timeStamp) {
+        i.contributionList = [
+          ...i.contributionList,
+          {
+            amount: amount,
+            timeStamp: new Date().getTime().toString(),
+            user: owner,
+          },
+        ];
+      }
+      return i
+    });
+    updateData([...newEvent])
+  };
+
+  const acceptInvite = (event : EventI) => {
+    if(!owner)  return
+    const newEvent = data.map((i: EventI) => {
+      if (i.timeStamp === event.timeStamp) {
+        i.inviteList = i.inviteList.map(t => {
+          if(t.email === owner.email){
+            t.isAccepted = true
+          }
+          return t
+        })
+        i.guestList = [...i.guestList , owner]
+      }
+      return i
+    });
+    updateData([...newEvent])
+  }
 
   return (
     <EventContext.Provider
@@ -118,6 +160,8 @@ const EventContextProvider = ({ children }: { children: React.ReactNode }) => {
         editEvent: editEvent,
         inviteGuest: inviteGuest,
         deleteEvent: deleteEvent,
+        contributeToEvent : contributeToEvent,
+        acceptInvite : acceptInvite
       }}
     >
       {children}

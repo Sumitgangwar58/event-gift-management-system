@@ -10,7 +10,8 @@ interface TextFieldI extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const TextField = ({ ...props }: TextFieldI) => {
-  const { label, helpText, hasError, ...rest } = props;
+  const { label, helpText, hasError, type ,...rest } = props;
+  
   return (
     <div
       className={classNames({
@@ -22,7 +23,9 @@ const TextField = ({ ...props }: TextFieldI) => {
         {props.label ? (
           <span className="textField__label">{props.label}</span>
         ) : null}
-        <input className="textField__input" {...rest} />
+        {
+          props.type === "textarea" ? <textarea cols={4} rows={4} className="textField__input" {...rest as React.InputHTMLAttributes<HTMLTextAreaElement>}/> : <input className="textField__input" {...rest} />
+        }
         {helpText ? (
           <span className="textField__helpText">
             {hasError ? <ErrorIcon color="currentColor" size={18} /> : null}

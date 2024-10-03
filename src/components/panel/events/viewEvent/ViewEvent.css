@@ -1,0 +1,41 @@
+.view-modal {
+  .modal__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--extra-loose);
+  }
+
+  .modal__body > div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tight);
+  }
+
+  table {
+    border: 1px solid black;
+    border-radius: 4px;
+    text-align: left;
+    tr:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+    th {
+      padding: 8px 4px;
+    }
+    td {
+      padding: 4px;
+    }
+
+    tfoot td:last-child {
+      font-weight: 600;
+    }
+    tfoot td:first-child {
+      color: var(--secondary-text);
+    }
+  }
+
+  .pending-invite-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--tight);
+  }
+}

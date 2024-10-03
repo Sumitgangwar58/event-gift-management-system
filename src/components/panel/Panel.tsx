@@ -2,7 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import SideBar, { SideBarOptionsI } from "../../ui-components/sidebar/SideBar";
 import "./Panel.css";
 import AppBar from "../../ui-components/appBar/AppBar";
-import { DashboardIcon, EventsIcon } from "../../assets/icons";
+import { AddPeople, DashboardIcon, EventsIcon } from "../../assets/icons";
 
 const routeOptions: SideBarOptionsI[] = [
   {
@@ -15,6 +15,11 @@ const routeOptions: SideBarOptionsI[] = [
     href: "events",
     title: "Events",
   },
+  {
+    icon : <AddPeople color="currentColor" />,
+    href : "invitations",
+    title : "Invitations"
+  }
 ];
 
 const PanelLayout = () => {

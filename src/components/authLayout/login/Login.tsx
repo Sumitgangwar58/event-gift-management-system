@@ -18,7 +18,7 @@ const Login = () => {
   const [formData, setFormData] = useState(initialValue);
   const [withPhone, setWithPhone] = useState(false);
   const [errors, setErrors] = useState(initialValue);
-  const { email, password, phone, changeValue } = useContext(UserContext);
+  const { usersList, changeValue, logInUser } = useContext(UserContext);
   const navigator = useNavigate();
 
   const handelChange = (
@@ -58,20 +58,21 @@ const Login = () => {
 
     if (!flag) return;
 
-    if (
-      password !== formData.password ||
-      (formData.email !== email && !withPhone) ||
-      (formData.phone !== phone && withPhone)
-    ) {
-      setErrors((prev) => ({
-        ...prev,
-        password: `Invalid ${withPhone ? "Phone" : "Email"} / Password`,
-      }));
-      return;
-    }
+    usersList?.forEach((user) => {
+      const isPasswordMatched = user.password === formData.password;
+      const isEmailMatched = user.email === formData.email || withPhone;
+      const isPhoneMatched = user.phone === formData.phone || !withPhone;
+      if (isPasswordMatched && isEmailMatched && isPhoneMatched) {
+        logInUser(formData.email);
+        navigator("/panel/dashboard");
+        return;
+      }
+    });
 
-    changeValue(true, "isLoggedIn");
-    navigator("/panel");
+    setErrors((prev) => ({
+      ...prev,
+      password: `Invalid ${withPhone ? "Phone" : "Email"} / Password`,
+    }));
   };
 
   const handelFieldChange = () => {
@@ -104,6 +105,7 @@ const Login = () => {
                 ? true
                 : false
             }
+            autoComplete="on"
           />
           <Button
             variant="textButton"

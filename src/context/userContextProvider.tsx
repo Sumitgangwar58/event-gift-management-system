@@ -8,24 +8,24 @@ export type User = {
 };
 
 type UserContextType = {
-  userName: string | null;
-  email: string;
-  password: string;
-  phone: string;
+  usersList: User[];
   changeValue: (
     value: string | boolean,
-    type: "userName" | "email" | "password" | "phone" | "isLoggedIn"
+    type: "isLoggedIn" | "password",
+    options?: { email: string }
   ) => void;
   isLoggedIn: boolean;
+  createUser: (user: User) => void;
+  owner?: User;
+  logInUser: (userEmail: string) => void;
 };
 
 const initialValue: UserContextType = {
-  userName: null,
-  email: "",
-  password: "",
-  phone: "",
+  usersList: [],
   changeValue: () => {},
   isLoggedIn: false,
+  createUser: () => {},
+  logInUser: () => {},
 };
 
 export const UserContext = createContext<UserContextType>(initialValue);
@@ -40,10 +40,40 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     return initialValue;
   });
 
-  const changeValue = (value: string | boolean, type: keyof typeof data) => {
+  const changeValue = (
+    value: string | boolean,
+    type: "isLoggedIn" | "password",
+    options?: { email: string }
+  ) => {
+    if (type === "password" && options && typeof value === "string") {
+      const newUserList = data.usersList.map((i) => {
+        if (i.email === options.email) i.password = value;
+        return i;
+      });
+      setData((prev) => ({
+        ...prev,
+        usersList: [...newUserList],
+      }));
+    } else if (typeof value === "boolean")
+      setData((prev) => ({
+        ...prev,
+        [type]: value,
+      }));
+  };
+
+  const createUser = (user: User) => {
+    const newUserList = [...data.usersList, user];
     setData((prev) => ({
       ...prev,
-      [type]: value,
+      usersList: [...newUserList],
+    }));
+  };
+
+  const logInUser = (userEmail: string) => {
+    setData((prev) => ({
+      ...prev,
+      isLoggedIn: true,
+      owner: data.usersList.filter((user) => user.email === userEmail)[0],
     }));
   };
 
@@ -52,7 +82,9 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   }, [data]);
 
   return (
-    <UserContext.Provider value={{ ...data, changeValue }}>
+    <UserContext.Provider
+      value={{ ...data, changeValue, createUser, logInUser }}
+    >
       {children}
     </UserContext.Provider>
   );

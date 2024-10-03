@@ -1,0 +1,27 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--extra-loose);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 20px;
+    border-radius: 6px;
+
+    table {
+        padding: 20px;
+        text-align: left;
+        width: 100%;
+
+        th {
+            padding: 12px 8px;
+        }
+
+        td {
+            padding: 8px;
+        }
+        
+    }
+}
+
+.card + .card {
+    margin-top : 32px
+}

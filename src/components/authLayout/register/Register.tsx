@@ -19,12 +19,11 @@ const initialValue = {
 
 const Register = () => {
   const [formData, setFormData] = useState(initialValue);
-  const [withPhone, setWithPhone] = useState(false);
 
   const [isAccountCreated, setIsAccountCreated] = useState(false);
   const [errors, setErrors] = useState(initialValue);
 
-  const { changeValue } = useContext(UserContext);
+  const { usersList, createUser } = useContext(UserContext);
 
   const handelChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -60,19 +59,41 @@ const Register = () => {
         key === "name" ? "simpleField" : key,
         {
           password: formData.password,
+          fieldName: key === "name" ? "Full Name" : "",
         }
       );
       newErrors[key] = error;
       if (error) flag = false;
     });
+
     setErrors({ ...newErrors });
 
     if (!flag) return;
 
-    changeValue(formData.name, "userName");
-    changeValue(formData.email, "email");
-    changeValue(formData.phone, "phone");
-    changeValue(formData.password, "password");
+    usersList?.forEach((user) => {
+      if (user.email === formData.email) {
+        newErrors.email =
+          "Email is already exists. Try with different Email Address";
+        flag = false;
+      }
+      if (user.phone === formData.phone) {
+        newErrors.phone =
+          "Phone number is already exists. Try with different Phone Number";
+        flag = false;
+      }
+    });
+
+    if (!flag) {
+      setErrors({ ...newErrors });
+      return;
+    }
+
+    createUser({
+      email: formData.email,
+      password: formData.password,
+      phone: formData.phone,
+      name: formData.name,
+    });
     setIsAccountCreated(true);
   };
 

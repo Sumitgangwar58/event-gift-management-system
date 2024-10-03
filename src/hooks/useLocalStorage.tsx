@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const useLocalStorage = (key: string) => {
-  const [data, setData] = useState<any>("");
+  const [data, setData] = useState<any>([]);
   useEffect(() => {
     const storageData = localStorage.getItem(key) ?? "";
     if (storageData) {

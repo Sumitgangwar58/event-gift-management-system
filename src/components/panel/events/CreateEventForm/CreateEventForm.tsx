@@ -143,12 +143,6 @@ const CreateEventForm = ({
       createEvent({
         title: data.title,
         description: data.description,
-        owner: {
-          name: user.userName ?? "",
-          email: user.email,
-          password: user.password,
-          phone: user.phone,
-        },
         inviteList: data.guestList,
       });
     }
